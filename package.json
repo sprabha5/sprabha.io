@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/sprabha5/sprabha5.github.io#readme",
   "dependencies": {
-    "@babel/core": "^7.27.1",
+    "@babel/core": "^7.28.5",
     "@babel/preset-env": "^7.27.2",
     "@babel/preset-react": "^7.27.1",
     "@tailwindcss/postcss": "^4.1.7",
