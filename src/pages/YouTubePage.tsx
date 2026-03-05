@@ -3,38 +3,37 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Typography, Box, IconButton, Paper, CircularProgress } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import type { YouTubeItem } from '../components/VideoCard';
+import { fetchAllYouTubeVideos } from '../utils/youtube';
 
 const YouTubePage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const [video, setVideo] = useState<YouTubeItem | null>(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
 
     useEffect(() => {
-        fetch('/youtube/index.json')
-            .then(res => res.json())
-            .then((data: Record<string, string>) => {
-                const entry = Object.entries(data).find(([_, url]) => url.includes(id || ''));
-                if (entry) {
-                    const [title, url] = entry;
-                    let videoId = url.split('/').pop() || '';
-                    if (url.includes('youtube.com/watch')) {
-                        const urlObj = new URL(url);
-                        videoId = urlObj.searchParams.get('v') || videoId;
-                    }
-                    setVideo({
-                        id: videoId,
-                        title,
-                        description: '',
-                        date: new Date().toISOString(),
-                        thumbnail: `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
-                    });
-                } else {
-                    setVideo(null);
-                }
+        let isCancelled = false;
+
+        fetchAllYouTubeVideos()
+            .then((videos) => {
+                if (isCancelled) return;
+                const selectedVideo = videos.find((item) => item.id === (id || '')) || null;
+                setVideo(selectedVideo);
             })
-            .catch(console.error)
-            .finally(() => setLoading(false));
+            .catch((err: unknown) => {
+                if (isCancelled) return;
+                const message = err instanceof Error ? err.message : 'Failed to load YouTube video.';
+                setError(message);
+            })
+            .finally(() => {
+                if (isCancelled) return;
+                setLoading(false);
+            });
+
+        return () => {
+            isCancelled = true;
+        };
     }, [id]);
 
     return (
@@ -50,6 +49,10 @@ const YouTubePage: React.FC = () => {
                 <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
                     <CircularProgress />
                 </Box>
+            ) : error ? (
+                <Typography variant="h6" color="error">
+                    {error}
+                </Typography>
             ) : video ? (
                 <Box>
                     <Paper elevation={3} sx={{ overflow: 'hidden', borderRadius: 3, mb: 4, bgcolor: 'black' }}>
