@@ -1,6 +1,6 @@
 ---
 title: "Beyond the Silicon: Why Component Packaging is Critical for Circuit Reliability"
-date: "2026-03-6T21:03:00"
+date: "2026-03-06T17:30:00"
 tags: ["power electronics", "electrical engineering", "Practical Learning", "Failure Analysis"]
 ---
 
