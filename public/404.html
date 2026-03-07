@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting...</title>
+  </head>
+  <body>
+    <script>
+      (function (location) {
+        const path = location.pathname.replace(/^\/+|\/+$/g, '');
+        const query = location.search
+          ? `&${location.search.slice(1).replace(/&/g, '~and~')}`
+          : '';
+        const hash = location.hash || '';
+        location.replace(`${location.protocol}//${location.host}/?/${path}${query}${hash}`);
+      })(window.location);
+    </script>
+  </body>
+</html>

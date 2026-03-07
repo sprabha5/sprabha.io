@@ -121,6 +121,21 @@
   </head>
 
   <body>
+    <script>
+      (function (location) {
+        if (!location.search.startsWith('?/')) {
+          return;
+        }
+
+        const decoded = location.search
+          .slice(2)
+          .replace(/~and~/g, '&');
+
+        const [routePath, ...queryParts] = decoded.split('&');
+        const query = queryParts.length > 0 ? `?${queryParts.join('&')}` : '';
+        window.history.replaceState(null, '', `/${routePath}${query}${location.hash}`);
+      })(window.location);
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

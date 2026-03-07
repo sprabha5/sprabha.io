@@ -1,6 +1,6 @@
 import type { YouTubeItem } from '../components/VideoCard';
 
-// /youtube/index.json
+// /content/youtube/index.json
 // {
 //   "channelId": "UCxxxxxxxxxxxxxxxxxxxxxx"
 // }
@@ -9,7 +9,7 @@ type YouTubeConfig = {
     channelId: string;
 };
 
-const CONFIG_PATH = '/youtube/index.json';
+const CONFIG_PATH = '/content/youtube/index.json';
 const CHANNEL_ID_REGEX = /^UC[\w-]{22}$/;
 const FETCH_TIMEOUT_MS = 8000;
 

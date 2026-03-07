@@ -11,12 +11,12 @@ const NotesList: React.FC = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('/notes/index.json')
+        fetch('/content/notes/index.json')
             .then(res => res.json())
             .then(async (files: string[]) => {
                 const posts = await Promise.all(
                     files.map(async (file) => {
-                        const res = await fetch(`/notes/${file}`);
+                        const res = await fetch(`/content/notes/${file}`);
                         const text = await res.text();
                         const { data } = parseFrontmatter(text);
                         const slug = file.replace(/\.md$/, '');

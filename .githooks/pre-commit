@@ -1,21 +1,9 @@
 #!/bin/sh
+set -eu
 
-# Run npm format command
-npm run format
+echo "Refreshing sitemap.xml..."
+npm run refresh:sitemap
+git add sitemap.xml
+echo "sitemap.xml refreshed and staged."
 
-# Check if there are any changes after formatting
-if [[ -n $(git status --porcelain) ]]; then
-    echo "Code formatting changes detected!"
-    echo "Files have been automatically formatted with uncrustify."
-    
-    # Stage the formatted changes
-    git add .
-    
-    echo "Formatted files have been staged for commit."
-    echo "Proceeding with commit..."
-else
-    echo "No formatting changes needed - code is already properly formatted."
-fi
-
-# Allow the commit to proceed
 exit 0

@@ -13,7 +13,7 @@ const BlogPage: React.FC = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`/blog/${slug}.md`)
+        fetch(`/content/blog/${slug}.md`)
             .then(res => {
                 if (!res.ok) throw new Error('Not found');
                 return res.text();

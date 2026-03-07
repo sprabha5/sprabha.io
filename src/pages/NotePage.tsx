@@ -13,7 +13,7 @@ const NotePage: React.FC = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`/notes/${slug}.md`)
+        fetch(`/content/notes/${slug}.md`)
             .then(res => {
                 if (!res.ok) throw new Error('Not found');
                 return res.text();

@@ -43,22 +43,29 @@ const Navigation: React.FC<NavigationProps> = ({ children }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    // Highlight current selected tab
-    const getActiveTab = () => {
-        const path = location.pathname;
-        if (path === '/' || path === '') return 0;
-        if (path.startsWith('/notes')) return 1;
-        if (path.startsWith('/blog')) return 2;
-        if (path.startsWith('/youtube')) return 3;
-        return 0;
+    const normalizePath = (path: string) => {
+        const normalized = path.replace(/\/+$/, '');
+        return normalized === '' ? '/' : normalized;
+    };
+
+    const isPathSelected = (targetPath: string) => {
+        const current = normalizePath(location.pathname);
+        const target = normalizePath(targetPath);
+
+        if (target === '/') {
+            return current === '/';
+        }
+
+        return current === target || current.startsWith(`${target}/`);
     };
 
     const handleNavigation = (path: string) => {
         navigate(path);
     };
 
-    const activeTab = getActiveTab();
-    const currentLabel = activeTab === 0 ? 'Shashi Prabha' : navItems[activeTab].label;
+    const activeTab = navItems.findIndex((item) => isPathSelected(item.path));
+    const resolvedActiveTab = activeTab === -1 ? 0 : activeTab;
+    const currentLabel = resolvedActiveTab === 0 ? 'Shashi Prabha' : navItems[resolvedActiveTab].label;
 
     return (
         <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: 'background.default' }}>
@@ -129,7 +136,7 @@ const Navigation: React.FC<NavigationProps> = ({ children }) => {
                 >
                     <List sx={{ width: '100%', px: 1 }}>
                         {navItems.map((item) => {
-                            const selected = location.pathname.startsWith(item.path);
+                            const selected = isPathSelected(item.path);
                             return (
                                 <ListItem key={item.label} disablePadding sx={{ mb: 1 }}>
                                     <ListItemButton
@@ -199,7 +206,7 @@ const Navigation: React.FC<NavigationProps> = ({ children }) => {
                 <Box sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1100 }}>
                     <BottomNavigation
                         showLabels
-                        value={activeTab}
+                        value={resolvedActiveTab}
                         onChange={(_, newValue) => {
                             handleNavigation(navItems[newValue].path);
                         }}

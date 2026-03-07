@@ -11,12 +11,12 @@ const BlogList: React.FC = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('/blog/index.json')
+        fetch('/content/blog/index.json')
             .then(res => res.json())
             .then(async (files: string[]) => {
                 const posts = await Promise.all(
                     files.map(async (file) => {
-                        const res = await fetch(`/blog/${file}`);
+                        const res = await fetch(`/content/blog/${file}`);
                         const text = await res.text();
                         const { data, content } = parseFrontmatter(text);
                         const slug = file.replace(/\.md$/, '');
