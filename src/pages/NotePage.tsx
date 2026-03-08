@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Typography, Box, IconButton, Paper, Chip, Stack, CircularProgress } from '@mui/material';
+import { Typography, Box, IconButton, Chip, Stack, CircularProgress } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ReactMarkdown from 'react-markdown';
-import { parseFrontmatter } from '../utils/markdown';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import MarkdownRenderer from '../components/MarkdownRenderer';
+import { parseFrontmatter, estimateReadingTime } from '../utils/markdown';
 
 const NotePage: React.FC = () => {
     const { slug } = useParams<{ slug: string }>();
     const navigate = useNavigate();
     const [content, setContent] = useState<string>('');
     const [metadata, setMetadata] = useState<any>({});
+    const [readingTime, setReadingTime] = useState<number>(0);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -22,6 +24,7 @@ const NotePage: React.FC = () => {
                 const { data, content } = parseFrontmatter(text);
                 setMetadata(data);
                 setContent(content);
+                setReadingTime(estimateReadingTime(content));
             })
             .catch(() => {
                 setContent('# Note not found');
@@ -30,7 +33,7 @@ const NotePage: React.FC = () => {
     }, [slug]);
 
     return (
-        <Box sx={{ maxWidth: 800, mx: 'auto', pb: 8 }}>
+        <Box sx={{ maxWidth: 780, mx: 'auto', pb: 8 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
                 <IconButton onClick={() => navigate('/notes')} sx={{ mr: 2 }} aria-label="back">
                     <ArrowBackIcon />
@@ -45,12 +48,33 @@ const NotePage: React.FC = () => {
             ) : (
                 <>
                     {metadata.title && (
-                        <Box sx={{ mb: 4 }}>
-                            <Typography variant="h3" fontWeight={700} sx={{ mb: 2 }}>
+                        <Box
+                            sx={{
+                                mb: 5,
+                                pb: 4,
+                                borderBottom: '1px solid',
+                                borderColor: 'divider',
+                            }}
+                        >
+                            <Typography
+                                variant="h4"
+                                fontWeight={700}
+                                sx={{
+                                    mb: 1.5,
+                                    fontSize: { xs: '1.5rem', sm: '1.85rem' },
+                                    letterSpacing: '-0.02em',
+                                    lineHeight: 1.25,
+                                }}
+                            >
                                 {metadata.title}
                             </Typography>
 
-                            <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 3 }}>
+                            <Stack
+                                direction="row"
+                                spacing={2}
+                                alignItems="center"
+                                sx={{ mb: 2, opacity: 0.8 }}
+                            >
                                 {metadata.date && (
                                     <Typography variant="body2" color="text.secondary">
                                         {new Date(metadata.date).toLocaleDateString(undefined, {
@@ -60,22 +84,27 @@ const NotePage: React.FC = () => {
                                         })}
                                     </Typography>
                                 )}
+                                {readingTime > 0 && (
+                                    <Stack direction="row" alignItems="center" spacing={0.5}>
+                                        <AccessTimeIcon sx={{ fontSize: 16, color: 'text.secondary' }} />
+                                        <Typography variant="body2" color="text.secondary">
+                                            {readingTime} min read
+                                        </Typography>
+                                    </Stack>
+                                )}
+                            </Stack>
+
+                            {metadata.tags?.length > 0 && (
                                 <Stack direction="row" spacing={1}>
-                                    {metadata.tags?.map((tag: string) => (
+                                    {metadata.tags.map((tag: string) => (
                                         <Chip key={tag} label={tag} size="small" variant="outlined" />
                                     ))}
                                 </Stack>
-                            </Stack>
+                            )}
                         </Box>
                     )}
 
-                    <Paper elevation={0} sx={{ p: { xs: 2, sm: 4 }, bgcolor: 'background.paper', borderRadius: 4, '& img': { maxWidth: '100%', borderRadius: 2 } }}>
-                        <Box sx={{ typography: 'body1', '& h1, & h2, & h3, & h4': { mt: 4, mb: 2, fontWeight: 600 } }}>
-                            <ReactMarkdown>
-                                {content}
-                            </ReactMarkdown>
-                        </Box>
-                    </Paper>
+                    <MarkdownRenderer content={content} />
                 </>
             )}
         </Box>

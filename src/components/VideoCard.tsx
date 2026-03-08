@@ -46,13 +46,21 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onClick }) => {
                     </Box>
                 </Box>
                 <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography variant="h6" component="div" sx={{ fontWeight: 600, mb: 1, fontSize: '1.1rem', lineHeight: 1.3 }}>
+                    <Typography
+                        variant="subtitle1"
+                        component="div"
+                        sx={{ fontWeight: 600, mb: 0.75, fontSize: { xs: '1.1rem', sm: '1.15rem' }, lineHeight: 1.3 }}
+                    >
                         {video.title}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                    <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{ mb: 1.5, fontSize: '0.95rem', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}
+                    >
                         {video.description}
                     </Typography>
-                    <Typography variant="caption" color="text.secondary" display="block" sx={{ mt: 'auto' }}>
+                    <Typography variant="body2" color="text.secondary" display="block" sx={{ mt: 'auto', fontSize: '0.9rem' }}>
                         {new Date(video.date).toLocaleDateString()}
                     </Typography>
                 </CardContent>

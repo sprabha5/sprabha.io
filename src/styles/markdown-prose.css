@@ -1,0 +1,332 @@
+/* ============================================================
+   Markdown Prose Stylesheet
+   Beautiful typography for rendered markdown content
+   ============================================================ */
+
+/* KaTeX math rendering */
+@import "katex/dist/katex.min.css";
+
+/* Highlight.js syntax theme - GitHub Dark Dimmed */
+@import "highlight.js/styles/github-dark-dimmed.min.css";
+
+/* ---- Base prose container ---- */
+.markdown-prose {
+  line-height: 1.7;
+  font-size: 0.95rem;
+  color: inherit;
+}
+
+.markdown-prose>*:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-prose>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* ---- Headings ---- */
+.markdown-prose h1,
+.markdown-prose h2,
+.markdown-prose h3,
+.markdown-prose h4,
+.markdown-prose h5,
+.markdown-prose h6 {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.markdown-prose h2 {
+  margin-top: 2.5em;
+  margin-bottom: 0.75em;
+  padding-bottom: 0.35em;
+  border-bottom: 1px solid var(--prose-divider, rgba(128, 128, 128, 0.2));
+}
+
+.markdown-prose h3 {
+  margin-top: 2em;
+  margin-bottom: 0.6em;
+}
+
+.markdown-prose h4 {
+  margin-top: 1.6em;
+  margin-bottom: 0.5em;
+}
+
+/* ---- Paragraphs ---- */
+.markdown-prose p {
+  margin-top: 0;
+  margin-bottom: 1.25em;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* ---- Links ---- */
+.markdown-prose a {
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+
+.markdown-prose a:hover {
+  text-decoration: underline;
+  opacity: 0.85;
+}
+
+/* ---- Blockquotes ---- */
+.markdown-prose blockquote {
+  margin: 1.75em 0;
+  padding: 1em 1.5em;
+  border-left: 4px solid var(--prose-accent, #6750A4);
+  background: var(--prose-blockquote-bg, rgba(103, 80, 164, 0.06));
+  border-radius: 0 12px 12px 0;
+  font-style: italic;
+}
+
+.markdown-prose blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- Horizontal Rules ---- */
+.markdown-prose hr {
+  border: none;
+  height: 2px;
+  margin: 2.5em 0;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      var(--prose-accent, #6750A4) 20%,
+      var(--prose-accent, #6750A4) 80%,
+      transparent 100%);
+  opacity: 0.3;
+  border-radius: 1px;
+}
+
+/* ---- Lists ---- */
+.markdown-prose ul,
+.markdown-prose ol {
+  margin-top: 0;
+  margin-bottom: 1.25em;
+  padding-left: 1.75em;
+}
+
+.markdown-prose li {
+  margin-bottom: 0.4em;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.markdown-prose li>p {
+  margin-bottom: 0.5em;
+}
+
+.markdown-prose li>ul,
+.markdown-prose li>ol {
+  margin-top: 0.4em;
+  margin-bottom: 0.4em;
+}
+
+/* ---- Task list checkboxes ---- */
+.markdown-prose .contains-task-list,
+.markdown-prose ul.contains-task-list {
+  list-style: none;
+  padding-left: 0.5em;
+}
+
+.markdown-prose .task-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6em;
+}
+
+.markdown-prose .task-list-item input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  border: 2px solid var(--prose-accent, #6750A4);
+  border-radius: 4px;
+  margin-top: 0.25em;
+  cursor: default;
+  position: relative;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.markdown-prose .task-list-item input[type="checkbox"]:checked {
+  background-color: var(--prose-accent, #6750A4);
+  border-color: var(--prose-accent, #6750A4);
+}
+
+.markdown-prose .task-list-item input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* ---- Inline code ---- */
+.markdown-prose code:not(pre code) {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+  font-size: 0.875em;
+  padding: 0.2em 0.45em;
+  border-radius: 6px;
+  background: var(--prose-inline-code-bg, rgba(103, 80, 164, 0.1));
+  color: var(--prose-inline-code-color, inherit);
+  font-weight: 500;
+  word-break: break-word;
+}
+
+/* ---- Code blocks ---- */
+.markdown-prose pre {
+  margin: 1.75em 0;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.markdown-prose pre code {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  display: block;
+  padding: 1.25em 1.5em;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.markdown-prose pre code::-webkit-scrollbar {
+  height: 6px;
+}
+
+.markdown-prose pre code::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.markdown-prose pre code::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.3);
+  border-radius: 3px;
+}
+
+/* Code block copy button */
+.code-block-wrapper {
+  position: relative;
+}
+
+.code-copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.code-block-wrapper:hover .code-copy-btn {
+  opacity: 1;
+}
+
+/* ---- Tables ---- */
+.markdown-prose .table-wrapper {
+  overflow-x: auto;
+  margin: 1.75em 0;
+  border-radius: 12px;
+  border: 1px solid var(--prose-divider, rgba(128, 128, 128, 0.2));
+  -webkit-overflow-scrolling: touch;
+}
+
+.markdown-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+
+.markdown-prose thead th {
+  font-weight: 600;
+  text-align: left;
+  padding: 0.85em 1em;
+  border-bottom: 2px solid var(--prose-divider, rgba(128, 128, 128, 0.25));
+  background: var(--prose-table-header-bg, rgba(103, 80, 164, 0.06));
+  white-space: nowrap;
+}
+
+.markdown-prose tbody td {
+  padding: 0.75em 1em;
+  border-bottom: 1px solid var(--prose-divider, rgba(128, 128, 128, 0.12));
+}
+
+.markdown-prose tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.markdown-prose tbody tr:nth-child(even) {
+  background: var(--prose-table-stripe-bg, rgba(128, 128, 128, 0.04));
+}
+
+/* ---- Images ---- */
+.markdown-prose .image-container {
+  margin: 2em 0;
+  text-align: center;
+}
+
+.markdown-prose .image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.markdown-prose .image-container img:hover {
+  transform: scale(1.01);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.markdown-prose .image-caption {
+  margin-top: 0.75em;
+  font-size: 0.875em;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* ---- Strong and Emphasis ---- */
+.markdown-prose strong {
+  font-weight: 700;
+}
+
+.markdown-prose em {
+  font-style: italic;
+}
+
+/* ---- KaTeX overrides ---- */
+.markdown-prose .katex {
+  font-size: 1.1em;
+}
+
+.markdown-prose .katex-display {
+  margin: 1.5em 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ---- Night sky CSS variable overrides ---- */
+[data-mui-color-scheme="dark"] .markdown-prose {
+  --prose-accent: #D0BCFF;
+  --prose-divider: rgba(180, 160, 220, 0.15);
+  --prose-blockquote-bg: rgba(208, 188, 255, 0.08);
+  --prose-inline-code-bg: rgba(208, 188, 255, 0.15);
+  --prose-table-header-bg: rgba(208, 188, 255, 0.08);
+  --prose-table-stripe-bg: rgba(255, 255, 255, 0.03);
+}
+
+[data-mui-color-scheme="light"] .markdown-prose {
+  --prose-accent: #B39DDB;
+  --prose-divider: rgba(180, 160, 220, 0.2);
+  --prose-blockquote-bg: rgba(179, 157, 219, 0.1);
+  --prose-inline-code-bg: rgba(179, 157, 219, 0.15);
+  --prose-table-header-bg: rgba(179, 157, 219, 0.08);
+  --prose-table-stripe-bg: rgba(255, 255, 255, 0.03);
+}

@@ -1,11 +1,9 @@
 ---
-title: "Describing Pain"
+title: "Reflections on Pain"
 date: "2026-02-15T23:27:00"
 tags: ["personal", "Poems 2026"]
 pinned: false
 ---
-
-# Reflections on Pain
 
 "How will you describe pain,  
 Pain which is inside you,  
@@ -37,8 +35,6 @@ I'll never want to have that pain,
 Which make me suffer,  
 which cost me everything,  
 My peace, my happiness & Me."
-
-**Shashi...** *15.feb.26, 11.27pm*
 
 ---
 

@@ -21,14 +21,18 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, onClick }) => {
             <CardActionArea onClick={() => onClick(note.slug)} sx={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
                 <CardContent sx={{ flexGrow: 1, width: '100%' }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
-                        <Typography variant="h6" component="div" sx={{ fontWeight: 600, lineHeight: 1.3 }}>
+                        <Typography
+                            variant="subtitle1"
+                            component="div"
+                            sx={{ fontWeight: 600, lineHeight: 1.3, fontSize: { xs: '1.05rem', sm: '1.1rem' } }}
+                        >
                             {note.title}
                         </Typography>
                         {note.pinned && (
                             <PushPinIcon color="primary" fontSize="small" sx={{ ml: 1, flexShrink: 0 }} />
                         )}
                     </Box>
-                    <Typography variant="caption" color="text.secondary" display="block" sx={{ mb: 2 }}>
+                    <Typography variant="body2" color="text.secondary" display="block" sx={{ mb: 2, fontSize: '0.9rem' }}>
                         {new Date(note.date).toLocaleDateString(undefined, {
                             year: 'numeric',
                             month: 'short',

@@ -60,6 +60,66 @@ export interface MarkdownFile {
     content: string;
 }
 
+const ABSOLUTE_URL_REGEX = /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i;
+
+function normalizeMarkdownImageTarget(target: string): string | undefined {
+    const trimmed = target.trim();
+    if (!trimmed) return undefined;
+
+    if (trimmed.startsWith('<')) {
+        const closingIndex = trimmed.indexOf('>');
+        if (closingIndex > 1) {
+            return trimmed.slice(1, closingIndex).trim();
+        }
+    }
+
+    return trimmed.split(/\s+/)[0]?.replace(/^['"]|['"]$/g, '').trim() || undefined;
+}
+
+export function extractFirstImageUrl(markdown: string): string | undefined {
+    const markdownImageMatch = markdown.match(/!\[[^\]]*]\(([^)]+)\)/);
+    if (markdownImageMatch?.[1]) {
+        const imageTarget = normalizeMarkdownImageTarget(markdownImageMatch[1]);
+        if (imageTarget) {
+            return imageTarget;
+        }
+    }
+
+    const htmlImageMatch = markdown.match(/<img[^>]*src=["']([^"']+)["'][^>]*>/i);
+    if (htmlImageMatch?.[1]) {
+        return htmlImageMatch[1].trim();
+    }
+
+    return undefined;
+}
+
+export function resolveMarkdownAssetUrl(url: string, basePath: string): string {
+    const trimmedUrl = url.trim();
+    if (!trimmedUrl) return trimmedUrl;
+
+    if (ABSOLUTE_URL_REGEX.test(trimmedUrl) || trimmedUrl.startsWith('/')) {
+        return trimmedUrl;
+    }
+
+    const normalizedBase = basePath.endsWith('/') ? basePath : `${basePath}/`;
+    const normalizedRelative = trimmedUrl.replace(/^\.\//, '');
+    const combinedPath = `${normalizedBase}${normalizedRelative}`;
+    const hasLeadingSlash = combinedPath.startsWith('/');
+    const segments = combinedPath.split('/');
+    const stack: string[] = [];
+
+    for (const segment of segments) {
+        if (!segment || segment === '.') continue;
+        if (segment === '..') {
+            if (stack.length > 0) stack.pop();
+            continue;
+        }
+        stack.push(segment);
+    }
+
+    return `${hasLeadingSlash ? '/' : ''}${stack.join('/')}`;
+}
+
 // Helper to resolve all globbed Vite raw modules into MarkdownFile array
 export function loadMarkdownFiles(modules: Record<string, string>): MarkdownFile[] {
     return Object.keys(modules).map(path => {
@@ -75,4 +135,17 @@ export function loadMarkdownFiles(modules: Record<string, string>): MarkdownFile
             content,
         };
     });
+}
+
+export function estimateReadingTime(markdown: string): number {
+    const plainText = markdown
+        .replace(/^---[\s\S]*?---/m, '')       // Remove frontmatter
+        .replace(/!?\[[^\]]*\]\([^)]+\)/g, '') // Remove links/images
+        .replace(/<[^>]*>/g, '')               // Remove HTML
+        .replace(/[#*_`~>|]/g, '')             // Remove markdown symbols
+        .replace(/\s+/g, ' ')
+        .trim();
+
+    const wordCount = plainText.split(/\s+/).filter(Boolean).length;
+    return Math.max(1, Math.round(wordCount / 200));
 }

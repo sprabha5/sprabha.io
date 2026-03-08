@@ -22,6 +22,7 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import PersonIcon from '@mui/icons-material/Person';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import NightSkyBackground from './NightSkyBackground';
 
 const drawerWidth = 80; // Navigation Rail width
 const contentMaxWidth = 1200;
@@ -69,16 +70,18 @@ const Navigation: React.FC<NavigationProps> = ({ children }) => {
 
     return (
         <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: 'background.default' }}>
+            <NightSkyBackground />
             {/* App Bar (Mainly for Mobile or title) */}
             <AppBar
                 position="fixed"
                 sx={{
                     width: { sm: `calc(100% - ${drawerWidth}px)` },
                     ml: { sm: `${drawerWidth}px` },
-                    bgcolor: 'background.paper',
+                    bgcolor: 'rgba(10, 14, 26, 0.75)',
+                    backdropFilter: 'blur(12px)',
                     color: 'text.primary',
-                    boxShadow: isMobile ? 1 : 0,
-                    borderBottom: isMobile ? 'none' : '1px solid',
+                    boxShadow: 'none',
+                    borderBottom: '1px solid',
                     borderColor: 'divider'
                 }}
             >
@@ -130,7 +133,8 @@ const Navigation: React.FC<NavigationProps> = ({ children }) => {
                             alignItems: 'center',
                             justifyContent: 'center',
                             borderRight: 'none',
-                            bgcolor: 'background.paper',
+                            bgcolor: 'rgba(10, 14, 26, 0.6)',
+                            backdropFilter: 'blur(12px)',
                         },
                     }}
                 >
@@ -211,7 +215,8 @@ const Navigation: React.FC<NavigationProps> = ({ children }) => {
                             handleNavigation(navItems[newValue].path);
                         }}
                         sx={{
-                            bgcolor: 'background.paper',
+                            bgcolor: 'rgba(10, 14, 26, 0.8)',
+                            backdropFilter: 'blur(12px)',
                             borderTop: '1px solid',
                             borderColor: 'divider',
                             height: 64, // Material Design default usually is 56 or 80 (with labels)

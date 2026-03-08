@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Typography, Box, IconButton, Paper, Chip, Stack, CircularProgress } from '@mui/material';
+import { Typography, Box, IconButton, Chip, Stack, CircularProgress } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ReactMarkdown from 'react-markdown';
-import { parseFrontmatter } from '../utils/markdown';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import MarkdownRenderer from '../components/MarkdownRenderer';
+import { parseFrontmatter, estimateReadingTime } from '../utils/markdown';
 
 const BlogPage: React.FC = () => {
     const { slug } = useParams<{ slug: string }>();
     const navigate = useNavigate();
     const [content, setContent] = useState<string>('');
     const [metadata, setMetadata] = useState<any>({});
+    const [readingTime, setReadingTime] = useState<number>(0);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -22,6 +24,7 @@ const BlogPage: React.FC = () => {
                 const { data, content } = parseFrontmatter(text);
                 setMetadata(data);
                 setContent(content);
+                setReadingTime(estimateReadingTime(content));
             })
             .catch(() => {
                 setContent('# Blog post not found');
@@ -30,7 +33,7 @@ const BlogPage: React.FC = () => {
     }, [slug]);
 
     return (
-        <Box sx={{ maxWidth: 800, mx: 'auto', minWidth: 0, pb: 8 }}>
+        <Box sx={{ maxWidth: 780, mx: 'auto', minWidth: 0, pb: 8 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
                 <IconButton onClick={() => navigate('/blog')} sx={{ mr: 2 }} aria-label="back">
                     <ArrowBackIcon />
@@ -45,18 +48,38 @@ const BlogPage: React.FC = () => {
             ) : (
                 <>
                     {metadata.title && (
-                        <Box sx={{ mb: 4 }}>
+                        <Box
+                            sx={{
+                                mb: 5,
+                                pb: 4,
+                                borderBottom: '1px solid',
+                                borderColor: 'divider',
+                            }}
+                        >
                             <Typography
-                                variant="h2"
+                                variant="h4"
                                 fontWeight={800}
-                                sx={{ mb: 2, fontSize: { xs: '2rem', sm: '3rem' }, overflowWrap: 'anywhere', wordBreak: 'break-word' }}
+                                sx={{
+                                    mb: 2,
+                                    fontSize: { xs: '1.5rem', sm: '2rem' },
+                                    overflowWrap: 'anywhere',
+                                    wordBreak: 'break-word',
+                                    letterSpacing: '-0.02em',
+                                    lineHeight: 1.25,
+                                }}
                             >
                                 {metadata.title}
                             </Typography>
 
-                            <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 3, flexWrap: 'wrap' }} useFlexGap>
+                            <Stack
+                                direction="row"
+                                spacing={2}
+                                alignItems="center"
+                                sx={{ mb: 2.5, flexWrap: 'wrap', opacity: 0.8 }}
+                                useFlexGap
+                            >
                                 {metadata.date && (
-                                    <Typography variant="subtitle1" color="primary" fontWeight={500}>
+                                    <Typography variant="body2" color="text.secondary" fontWeight={500}>
                                         {new Date(metadata.date).toLocaleDateString(undefined, {
                                             year: 'numeric',
                                             month: 'long',
@@ -64,35 +87,39 @@ const BlogPage: React.FC = () => {
                                         })}
                                     </Typography>
                                 )}
+                                {readingTime > 0 && (
+                                    <Stack direction="row" alignItems="center" spacing={0.5}>
+                                        <AccessTimeIcon sx={{ fontSize: 16, color: 'text.secondary' }} />
+                                        <Typography variant="body2" color="text.secondary">
+                                            {readingTime} min read
+                                        </Typography>
+                                    </Stack>
+                                )}
                             </Stack>
-                            <Stack direction="row" spacing={1} sx={{ mb: 4, flexWrap: 'wrap' }} useFlexGap>
-                                {metadata.tags?.map((tag: string) => (
-                                    <Chip key={tag} label={tag} size="small" variant="outlined" />
-                                ))}
-                            </Stack>
+
+                            {metadata.tags?.length > 0 && (
+                                <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap' }} useFlexGap>
+                                    {metadata.tags.map((tag: string) => (
+                                        <Chip
+                                            key={tag}
+                                            label={tag}
+                                            size="small"
+                                            sx={{
+                                                borderRadius: '8px',
+                                                fontWeight: 500,
+                                                bgcolor: 'primary.main',
+                                                color: 'primary.contrastText',
+                                                fontSize: '0.75rem',
+                                                '&:hover': { opacity: 0.9 },
+                                            }}
+                                        />
+                                    ))}
+                                </Stack>
+                            )}
                         </Box>
                     )}
 
-                    <Paper elevation={0} sx={{ p: 0, bgcolor: 'transparent' }}>
-                        <Box
-                            sx={{
-                                typography: 'body1',
-                                lineHeight: 1.8,
-                                fontSize: { xs: '1rem', sm: '1.1rem' },
-                                minWidth: 0,
-                                '& h1, & h2, & h3, & h4': { mt: 5, mb: 2, fontWeight: 700, overflowWrap: 'anywhere', wordBreak: 'break-word' },
-                                '& p, & li, & a, & blockquote': { overflowWrap: 'anywhere', wordBreak: 'break-word' },
-                                '& pre': { maxWidth: '100%', overflowX: 'auto' },
-                                '& code': { overflowWrap: 'anywhere', wordBreak: 'break-word' },
-                                '& table': { display: 'block', maxWidth: '100%', overflowX: 'auto' },
-                                '& img': { maxWidth: '100%', height: 'auto', borderRadius: 2 },
-                            }}
-                        >
-                            <ReactMarkdown>
-                                {content}
-                            </ReactMarkdown>
-                        </Box>
-                    </Paper>
+                    <MarkdownRenderer content={content} />
                 </>
             )}
         </Box>

@@ -81,11 +81,11 @@ const YouTubePage: React.FC = () => {
                         </Box>
                     </Paper>
 
-                    <Typography variant="h4" fontWeight={700} sx={{ mb: 2 }}>
+                    <Typography variant="h5" fontWeight={700} sx={{ mb: 1.5, fontSize: { xs: '1.25rem', sm: '1.5rem' } }}>
                         {video.title}
                     </Typography>
 
-                    <Typography variant="subtitle1" color="text.secondary" sx={{ mb: 3 }}>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2.5 }}>
                         {new Date(video.date).toLocaleDateString(undefined, {
                             year: 'numeric',
                             month: 'long',
