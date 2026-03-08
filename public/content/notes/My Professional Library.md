@@ -8,7 +8,7 @@ Welcome to my curated collection of resources. This repository serves as a track
 
 ### Fundamentals of Power Electronics
 
-<img src="https://m.media-amazon.com/images/I/71u3Y0H6VHL._SL1500_.jpg" width="120" align="left" alt="Erickson Book Cover" style="margin-right: 15px;">
+<img src="https://m.media-amazon.com/images/I/513KApOZMTL._SY425_.jpg" width="120" align="left" alt="Erickson Book Cover" style="margin-right: 15px;">
 
 **Author:** Robert W. Erickson  
 **Focus:** DC-DC Topologies & Small-Signal Modeling  
