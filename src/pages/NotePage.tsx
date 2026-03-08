@@ -33,7 +33,7 @@ const NotePage: React.FC = () => {
     }, [slug]);
 
     return (
-        <Box sx={{ maxWidth: 780, mx: 'auto', minWidth: 0, pb: 8 }}>
+        <Box sx={{ width: '100%', maxWidth: 780, mx: 'auto', minWidth: 0, pb: 8, overflowX: 'clip' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
                 <IconButton onClick={() => navigate('/notes')} sx={{ mr: 2 }} aria-label="back">
                     <ArrowBackIcon />
@@ -75,7 +75,7 @@ const NotePage: React.FC = () => {
                                 direction="row"
                                 spacing={2}
                                 alignItems="center"
-                                sx={{ mb: 2, flexWrap: 'wrap', opacity: 0.8 }}
+                                sx={{ mb: 2, flexWrap: 'wrap', opacity: 0.8, minWidth: 0 }}
                                 useFlexGap
                             >
                                 {metadata.date && (
@@ -98,9 +98,15 @@ const NotePage: React.FC = () => {
                             </Stack>
 
                             {metadata.tags?.length > 0 && (
-                                <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap' }} useFlexGap>
+                                <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', minWidth: 0 }} useFlexGap>
                                     {metadata.tags.map((tag: string) => (
-                                        <Chip key={tag} label={tag} size="small" variant="outlined" />
+                                        <Chip
+                                            key={tag}
+                                            label={tag}
+                                            size="small"
+                                            variant="outlined"
+                                            sx={{ maxWidth: '100%', '& .MuiChip-label': { overflowWrap: 'anywhere' } }}
+                                        />
                                     ))}
                                 </Stack>
                             )}
