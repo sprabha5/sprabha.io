@@ -38,24 +38,18 @@ Interactive checklist for mastering simulation tools and automation scripting.
 
 <details>
 <summary><b>💻 LTspice & QSPICE Resources</b></summary>
-
 <br>
-
 - [x] **The LTspice IV/XVII Guide** - Gilles Brocard
 - [x] **Switch-Mode Power Supply Simulation** - Christophe Basso
 - [ ] **QSPICE Advanced Modeling** - (Digital/Analog Mixed Signal)
-
 </details>
 
 <details>
 <summary><b>🐍 Automation & Equipment Control</b></summary>
-
 <br>
-
 - [x] **Keysight Command Expert Documentation** (Automation validation)
 - [ ] **Python for Test and Measurement** - (Instrument Control)
 - [ ] **SCPI Command Reference** - (Zener Diode Reliability Testing)
-
 </details>
 
 ---
@@ -66,13 +60,10 @@ A collection of works that balance the logic of engineering with the soul of art
 
 <details>
 <summary><b>✍️ Current Reading List</b></summary>
-
 <br>
-
 1. *Letters to a Young Poet* — Rainer Maria Rilke
 2. *The Sun and Her Flowers* — Rupi Kaur
 3. *Original Journal Entries (2025-26)* — (Self-authored)
-
 </details>
 
 ---
