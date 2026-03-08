@@ -6,18 +6,21 @@ Welcome to my curated collection of resources. This repository serves as a track
 
 ## 🚀 Currently Reading & Highlighting
 
-### [Fundamentals of Power Electronics](https://example.com)
-<img src="https://m.media-amazon.com/images/I/71u3Y0H6VHL._SL1500_.jpg" width="120" align="left" alt="Erickson Book Cover">
+### [Fundamentals of Power Electronics](https://m.media-amazon.com/images/I/71u3Y0H6VHL._SL1500_.jpg)
+
+<img src="https://m.media-amazon.com/images/I/71u3Y0H6VHL._SL1500_.jpg" width="120" align="left" alt="Erickson Book Cover" style="margin-right: 15px;">
 
 **Author:** Robert W. Erickson  
 **Focus:** DC-DC Topologies & Small-Signal Modeling  
 **Status:** 📖 Active Study (Chapter 5: Converter Modeling)  
 **Key Takeaway:** Essential for refining my **Flyback Converter** designs and understanding state-space averaging for complex systems.
+
 <br clear="left"/>
 
 ---
 
 ## ⚡ Technical Reference Archive
+
 Comprehensive list of textbooks and manuals for power electronics and circuit simulation.
 
 | Title | Author | Status | Category |
@@ -30,10 +33,12 @@ Comprehensive list of textbooks and manuals for power electronics and circuit si
 ---
 
 ## 🛠️ Simulation & Automation Toolkit
+
 Interactive checklist for mastering simulation tools and automation scripting.
 
 <details>
 <summary><b>💻 LTspice & QSPICE Resources</b></summary>
+<br>
 
 - [x] **The LTspice IV/XVII Guide** - Gilles Brocard
 - [x] **Switch-Mode Power Supply Simulation** - Christophe Basso
@@ -42,6 +47,7 @@ Interactive checklist for mastering simulation tools and automation scripting.
 
 <details>
 <summary><b>🐍 Automation & Equipment Control</b></summary>
+<br>
 
 - [x] **Keysight Command Expert Documentation** (Automation validation)
 - [ ] **Python for Test and Measurement** - (Instrument Control)
@@ -51,10 +57,12 @@ Interactive checklist for mastering simulation tools and automation scripting.
 ---
 
 ## 📜 Poetry & Creative Writing
+
 A collection of works that balance the logic of engineering with the soul of art.
 
 <details>
 <summary><b>✍️ Current Reading List</b></summary>
+<br>
 
 1.  *Letters to a Young Poet* — Rainer Maria Rilke
 2.  *The Sun and Her Flowers* — Rupi Kaur
@@ -64,6 +72,7 @@ A collection of works that balance the logic of engineering with the soul of art
 ---
 
 ## ✅ Learning Roadmap & Goals
+
 Track my progress on specific technical and creative milestones.
 
 - [x] Complete simulation for **Single-Phase Vienna Rectifier**.
@@ -75,9 +84,10 @@ Track my progress on specific technical and creative milestones.
 ---
 
 ## 🔗 How to Navigate
-* **📖 Reading:** Active study; notes are being added to the `/summaries` folder.
-* **✅ Completed:** Full understanding achieved; applied to projects.
-* **⏳ Queue:** Books and papers scheduled for the next quarter.
+
+* 📖 **Reading:** Active study; notes are being added to the `/summaries` folder.
+* ✅ **Completed:** Full understanding achieved; applied to projects.
+* ⏳ **Queue:** Books and papers scheduled for the next quarter.
 
 ---
-*“The girl who no one believed could achieve something got into IIT; now, I build circuits and write verses.”*
+*"The girl who no one believed could achieve something got into IIT; now, I build circuits and write verses."*
