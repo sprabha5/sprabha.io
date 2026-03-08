@@ -14,22 +14,17 @@ Welcome to my curated collection of resources. This repository serves as a track
 **Focus:** DC-DC Topologies & Small-Signal Modeling  
 **Status:** 📖 Active Study (Chapter 5: Converter Modeling)  
 **Key Takeaway:** Essential for refining my **Flyback Converter** designs and understanding state-space averaging for complex systems.
-
 <br clear="left"/>
 
 ---
-
 ## ⚡ Technical Reference Archive
-
 Comprehensive list of textbooks and manuals for power electronics and circuit simulation.
-
 | Title | Author | Status | Category |
 | :--- | :--- | :---: | :--- |
 | *Power Electronics* | Daniel Hart | ✅ | Core Fundamentals |
 | *Switching Power Supplies* | Abraham Pressman | 📖 | Magnetics & EMI |
 | *The Art of Electronics* | Horowitz & Hill | 📖 | Discrete Design |
 | *Vienna Rectifier Design Guide* | Technical Papers | ✅ | Power Factor Correction |
-
 ---
 
 ## 🛠️ Simulation & Automation Toolkit
